@@ -1,0 +1,6 @@
+services:
+  terminal-app:
+    build: python-terminal-app
+    container_name: python-terminal-app
+    tty: true
+    stdin_open: true
