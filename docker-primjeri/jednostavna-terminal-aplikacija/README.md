@@ -1,6 +1,6 @@
 # Jednostavna Terminal Aplikacija (Python + Docker)
 
-Ovaj projekt prikazuje kako pokrenuti jednostavnu Python terminalsku aplikaciju za transformaciju teksta koristeći Docker i Docker Compose.
+Ovaj projekt prikazuje kako pokrenuti jednostavnu Python terminal aplikaciju za transformaciju teksta koristeći Docker i Docker Compose.
 
 ## Sadržaj
 
