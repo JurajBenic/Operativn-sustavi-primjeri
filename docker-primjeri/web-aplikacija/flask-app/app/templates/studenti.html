@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Studenti{% endblock %}
+
+{% block content %}
+<h1>Studenti</h1>
+<div class="row mb-3">
+    <div class="col-3">
+        <a href="/studenti/add" class="btn btn-primary">Dodaj novog studenta</a>
+    </div>
+</div>
+
+<div class="col">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="d-none">ID</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Godina rođenja</th>
+                <th>JMBAG</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in studenti %}
+            <tr>
+                <td class="d-none">{{ student[0] }}</td>
+                <td>{{ student[1] }}</td>
+                <td>{{ student[2] }}</td>
+                <td>{{ student[3] }}</td>
+                <td>{{ student[3] }}</td>
+                <td>{{ student[5] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

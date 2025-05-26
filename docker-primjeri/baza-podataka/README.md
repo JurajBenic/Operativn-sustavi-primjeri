@@ -46,3 +46,8 @@ volumes:
 
 - Prilagodite varijable okoline prema vlastitim potrebama.
 - Za više informacija o podržanim opcijama pogledajte [dokumentaciju za Docker Compose](https://docs.docker.com/compose/).
+- Baza podataka koristi zajedničku mrežu **shared-net** kako bi omogućila komunikaciju s drugim servisima, poput Flask aplikacije.
+- Prije pokretanja servisa, osigurajte da je mreža kreirana:
+  ```powershell
+  docker network create shared-net
+  ```

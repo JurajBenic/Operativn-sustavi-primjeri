@@ -1,0 +1,23 @@
+services:
+  web-app:
+    build: flask-app
+    container_name: flask-app
+    ports:
+      - "15000:5000"
+    environment:
+      PGADMIN_DEFAULT_PASSWORD_FILE: /run/secrets/pgadmin_default_password
+    env_file:
+      - ./.env
+    tty: true
+    stdin_open: true
+    networks:
+      - shared-net
+
+
+secrets:
+  pgadmin_default_password:
+    file: ./secrets/pgadmin_default_password.txt
+
+networks:
+  shared-net:
+    external: true

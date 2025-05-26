@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Dodaj novog studenta</h1>
+<div class="container">
+    <form method="POST" action="/studenti/add">
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+        <div class="form-group mb-3">
+            <label for="firstName">Ime</label>
+            <input type="text" class="form-control" id="firstName" name="ime" placeholder="Unesite ime" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="lastName">Prezime</label>
+            <input type="text" class="form-control" id="lastName" name="prezime" placeholder="Unesite prezime" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="email">Email adresa</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Unesite email" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="indexNumber">JMBAG</label>
+            <input type="text" class="form-control" id="indexNumber" name="jmbag" placeholder="Unesite JMBAG" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="birthDate">Godina rođenja</label>
+            <input type="number" class="form-control" id="birthDate" name="godina_rodenja"
+                placeholder="Unesite godinu rođenja" minlength="4" maxlength="4" pattern="\d{4}" max="2100" required>
+        </div>
+        <div class="form-group mb-3">
+            <button type="submit" class="btn btn-primary">Dodaj studenta</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
