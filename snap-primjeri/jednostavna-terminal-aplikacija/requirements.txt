@@ -1,0 +1,8 @@
+cmudict==1.0.32
+importlib_metadata==8.7.0
+importlib_resources==6.5.2
+pyphen==0.17.2
+setuptools==78.1.1
+textstat==0.7.7
+wheel==0.45.1
+zipp==3.21.0

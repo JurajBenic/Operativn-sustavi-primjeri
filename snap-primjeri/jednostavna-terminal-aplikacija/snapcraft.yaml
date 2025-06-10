@@ -1,0 +1,24 @@
+name: jednostavna-terminal-aplikacija # Name of the snap package, must be unique in the Snap Store
+base: core24 # Base snap providing the execution environment for this snap
+version: '0.1' # Version of the application, typically in the format '1.2+git' or '1.3.2'
+summary: Jednostavna terminal aplikacija # Short summary of the application (up to 79 characters)
+description: |
+  Ova aplikacija je jednostavna terminalska aplikacija napisana u Pythonu.
+  Služi kao primjer za izradu i pakiranje terminalskih aplikacija pomoću Snapcraft alata.
+  Omogućuje korisnicima osnovnu interakciju putem terminala i može se lako proširiti
+  dodatnim funkcionalnostima prema potrebi. # Detailed description of the application
+
+grade: devel # Development version, must be 'stable' for release in stable channels
+confinement: devmode # Confinement mode, use 'strict' for stricter security measures
+
+parts:
+  jednostavna-terminal-aplikacija:
+    plugin: python # Snapcraft plugin used for Python applications
+    source: . # Source code of the application, current directory
+    stage-packages: 
+      - python3.12 # Python runtime version required by the application
+    python-requirements: ['requirements.txt'] # List of Python dependencies located in the requirements.txt file
+
+apps:
+  jednostavna-terminal-aplikacija:
+    command: bin/app # Command executed when running the application
