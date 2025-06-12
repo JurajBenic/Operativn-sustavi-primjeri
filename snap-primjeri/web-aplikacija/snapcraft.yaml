@@ -1,37 +1,36 @@
-name: web-aplikacija
-base: core24
-version: '0.1'
-summary: Simple Flask App
-# Detailed description of the application
+name: web-aplikacija # Name of the Snap package
+base: core24 # Base Snap providing the runtime environment
+version: '0.1' # Version of the application
+summary: Simple Flask App # Short summary of the application
 description: |
-  This is a simple Flask application that says "Hello, World!".
+  This Snap package contains a simple Flask application that serves a "Hello, World!" message.
+  It demonstrates how to package and deploy a Python web application using Snapcraft.
 
-grade: devel
-confinement: devmode
+grade: devel # Development grade, use 'stable' for production
+confinement: devmode # Confinement mode, use 'strict' for stricter security
 
 parts:
   web-aplikacija:
-    plugin: python
-    source: .
-    python-requirements: ['requirements.txt']
-    organize:
-      app.py: app/app.py
-      static/: app/static/
-      templates/: app/templates/
+    plugin: python # Use the Python plugin to handle dependencies
+    source: . # Source directory for the application
+    python-requirements: ['requirements.txt'] # Path to the requirements file
+    # organize:
+    #   app.py: app/app.py # Move app.py to the app directory
+    #   static/: app/static/ # Move static files to the app/static directory
+    #   templates/: app/templates/ # Move templates to the app/templates directory
 
   run-flask-script:
-    plugin: dump
-    source: .
+    plugin: dump # Use the dump plugin to include additional files
+    source: . # Source directory for the script
     organize:
       run-flask.sh: bin/run-flask.sh # Map the script to the bin directory
       app: bin/app/ # Map the app directory to the bin directory
 
-
 apps:
   web-aplikacija:
-    command: bin/run-flask.sh
+    command: bin/run-flask.sh # Command to run the Flask app
     plugs:
-      - network-bind
+      - network-bind # Allow the app to bind to network ports
     environment:
-      FLASK_APP: $SNAP/bin/app/app.py
-      FLASK_ENV: development
+      FLASK_APP: $SNAP/bin/app/app.py # Path to the Flask app
+      FLASK_ENV: development # Set the Flask environment to development
