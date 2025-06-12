@@ -1,0 +1,34 @@
+name: webapp-service # Name of the Snap package
+base: core24 # Base Snap providing the runtime environment
+version: '0.1' # Version of the application
+summary: Simple Flask App # Short summary of the application
+description: |
+  This Snap package contains a simple Flask application that serves a "Hello, World!" message.
+  It demonstrates how to package and deploy a Python web application using Snapcraft.
+
+grade: devel # Development grade, use 'stable' for production
+confinement: devmode # Confinement mode, use 'strict' for stricter security
+
+parts:
+  webapp-service:
+    plugin: python # Use the Python plugin to handle dependencies
+    source: . # Source directory for the application
+    python-requirements: ['requirements.txt'] # Path to the requirements file
+
+  run-flask-script:
+    plugin: dump # Use the dump plugin to include additional files
+    source: . # Source directory for the script
+    organize:
+      run-flask.sh: bin/run-flask.sh # Map the script to the bin directory
+      app: bin/app/ # Map the app directory to the bin directory
+
+apps:
+  webapp-service:
+    command: bin/run-flask.sh # Command to run the Flask app
+    daemon: simple # Run the app as a daemon
+    restart-condition: always # Restart the app if it crashes
+    plugs:
+      - network-bind # Allow the app to bind to network ports
+    environment:
+      FLASK_APP: $SNAP/bin/app/app.py # Path to the Flask app
+      FLASK_ENV: production # Set the Flask environment to production
