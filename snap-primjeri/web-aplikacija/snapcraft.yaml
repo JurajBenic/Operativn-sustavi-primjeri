@@ -14,12 +14,17 @@ parts:
     plugin: python
     source: .
     python-requirements: ['requirements.txt']
+    organize:
+      app.py: app/app.py
+      static/: app/static/
+      templates/: app/templates/
 
   run-flask-script:
     plugin: dump
     source: .
     organize:
       run-flask.sh: bin/run-flask.sh # Map the script to the bin directory
+      app: bin/app/ # Map the app directory to the bin directory
 
 
 apps:
@@ -27,3 +32,6 @@ apps:
     command: bin/run-flask.sh
     plugs:
       - network-bind
+    environment:
+      FLASK_APP: $SNAP/bin/app/app.py
+      FLASK_ENV: development
