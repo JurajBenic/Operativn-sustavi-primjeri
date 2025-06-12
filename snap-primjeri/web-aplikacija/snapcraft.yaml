@@ -14,10 +14,6 @@ parts:
     plugin: python # Use the Python plugin to handle dependencies
     source: . # Source directory for the application
     python-requirements: ['requirements.txt'] # Path to the requirements file
-    # organize:
-    #   app.py: app/app.py # Move app.py to the app directory
-    #   static/: app/static/ # Move static files to the app/static directory
-    #   templates/: app/templates/ # Move templates to the app/templates directory
 
   run-flask-script:
     plugin: dump # Use the dump plugin to include additional files
