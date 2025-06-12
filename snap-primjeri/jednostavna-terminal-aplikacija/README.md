@@ -16,7 +16,7 @@ Ova aplikacija je jednostavna terminalska aplikacija napisana u Pythonu. Služi 
 1. Klonirajte repozitorij:
    ```bash
    git clone <URL>
-   cd jednostavna-terminal-aplikacija
+   cd snap-primjeri/jednostavna-terminal-aplikacija
    ```
 2. Izgradite snap paket:
    ```bash

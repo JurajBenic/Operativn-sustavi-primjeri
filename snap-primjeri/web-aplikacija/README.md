@@ -34,7 +34,7 @@ web-aplikacija/
 1. Klonirajte repozitorij:
    ```bash
    git clone <repository-url>
-   cd web-aplikacija
+   cd snap-primjeri/web-aplikacija
    ```
 2. Izgradite Snap paket:
    ```bash
