@@ -26,13 +26,15 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
     ports:
-      - "3306:3306"
+      - "3306:3306"  # 3306 na hostu : 3306 u kontejneru
     volumes:
       - db_data:/var/lib/mysql
 
 volumes:
   db_data:
 ```
+
+> **Napomena:** U zapisu `"3306:3306"` prvi broj (lijevo) označava port na host računalu, a drugi broj (desno) port unutar Docker kontejnera. To znači da je baza dostupna na portu 3306 vašeg računala, a promet se prosljeđuje na port 3306 u kontejneru.
 
 ## Pokretanje baze podataka
 
