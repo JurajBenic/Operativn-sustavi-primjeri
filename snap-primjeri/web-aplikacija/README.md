@@ -73,3 +73,34 @@ Pokrenite Flask aplikaciju:
 ```bash
 python app/app.py
 ```
+
+## Objašnjenje dijela snapcraft.yaml: parts i apps
+
+### parts
+Ova sekcija definira kako se aplikacija i dodatne skripte pakiraju u Snap paket.
+
+- **web-aplikacija**:
+  - `plugin: python`: Koristi Python plugin za automatsko upravljanje ovisnostima i instalaciju aplikacije.
+  - `source: .`: Označava da se izvorni kod aplikacije nalazi u trenutnom direktoriju.
+  - `python-requirements: ['requirements.txt']`: Navodi putanju do datoteke s Python ovisnostima koje će biti instalirane.
+
+- **run-flask-script**:
+  - `plugin: dump`: Koristi dump plugin za kopiranje dodatnih datoteka u Snap paket.
+  - `source: .`: Označava da se skripta i direktorij aplikacije kopiraju iz trenutnog direktorija.
+  - `organize`: Definira mapiranje datoteka unutar Snapa:
+    - `run-flask.sh: bin/run-flask.sh`: Skripta se kopira u direktorij `bin`.
+    - `app: bin/app/`: Direktorij aplikacije se kopira u `bin/app/`.
+
+### apps
+Ova sekcija definira kako se aplikacija pokreće i koje dozvole koristi.
+
+- **web-aplikacija**:
+  - `command: bin/run-flask.sh`: Definira naredbu koja se pokreće kada korisnik pokrene Snap aplikaciju. Ovdje se pokreće skripta koja starta Flask aplikaciju.
+  - `plugs: [network-bind]`: Omogućuje aplikaciji da otvara mrežne portove (npr. za web server).
+  - `environment`:
+    - `FLASK_APP: $SNAP/bin/app/app.py`: Postavlja varijablu okoline koja definira putanju do Flask aplikacije unutar Snapa.
+    - `FLASK_ENV: development`: Postavlja Flask okruženje na razvojni način (za debugiranje).
+
+---
+
+Ova konfiguracija omogućuje da se Python aplikacija i potrebne skripte pravilno instaliraju i pokreću unutar Snap paketa, uz potrebne dozvole i varijable okoline.
