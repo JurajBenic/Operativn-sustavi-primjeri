@@ -3,8 +3,8 @@ FROM python:3.13-slim
 # Install system dependencies for PyQt6 and X11
 RUN apt-get update && apt-get install -y \
     git \
-    libgl1-mesa-glx \
-    libegl1-mesa \
+    libgl1 \
+    libegl1 \
     libqt6core6 \
     libqt6gui6 \
     libqt6widgets6 \
