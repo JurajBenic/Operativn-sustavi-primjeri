@@ -93,5 +93,24 @@ Za ažuriranje Snap paketa:
    sudo snap install webapp-service_0.1_amd64.snap --devmode --dangerous
    ```
 
-## Licenca
-Ovaj projekt je licenciran pod MIT licencom. Pogledajte datoteku `LICENSE` za detalje.
+## Objašnjenje sekcije 'apps' iz snapcraft.yaml
+
+Ova sekcija definira kako se aplikacija pokreće i upravlja kao servis unutar Snap paketa:
+
+- **command: bin/run-flask.sh**
+  - Definira skriptu koja se pokreće za startanje Flask aplikacije.
+
+- **daemon: simple**
+  - Aplikacija se pokreće kao jednostavan servis (daemon) koji radi u pozadini.
+
+- **restart-condition: always**
+  - Servis će se automatski ponovno pokrenuti ako dođe do pada ili greške.
+
+- **plugs: [network-bind]**
+  - Omogućuje aplikaciji da otvara mrežne portove (npr. za web server).
+
+- **environment**
+  - `FLASK_APP: $SNAP/bin/app/app.py` – Postavlja varijablu okoline koja definira putanju do Flask aplikacije unutar Snapa.
+  - `FLASK_ENV: production` – Postavlja Flask okruženje na produkcijski način.
+
+Ova konfiguracija omogućuje da se Flask aplikacija automatski pokreće kao servis, ima pristup mreži i koristi produkcijsko okruženje.
