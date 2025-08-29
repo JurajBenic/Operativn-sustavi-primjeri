@@ -31,7 +31,7 @@ Za kreiranje Snap paketa, potrebno je instalirati sljedeće programe:
 
 2. **Izgradite Snap paket:**
    ```bash
-   snapcraft
+   snapcraft pack
    ```
 
 3. **Testirajte Snap paket:**

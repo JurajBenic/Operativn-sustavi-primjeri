@@ -85,8 +85,8 @@ Za pokretanje aplikacije lokalno bez Snapa:
 Za ažuriranje Snap paketa:
 1. Napravite promjene u aplikaciji ili `snapcraft.yaml` datoteci.
 2. Ponovno izgradite Snap paket:
-   ```bash
-   snapcraft
+   ```bash 
+   snapcraft pack
    ```
 3. Ponovno instalirajte ažurirani paket:
    ```bash

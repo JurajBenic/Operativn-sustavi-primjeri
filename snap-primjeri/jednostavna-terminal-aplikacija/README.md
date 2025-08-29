@@ -20,7 +20,7 @@ Ova aplikacija je jednostavna terminalska aplikacija napisana u Pythonu. Služi 
    ```
 2. Izgradite snap paket:
    ```bash
-   snapcraft
+   snapcraft pack
    ```
 3. Instalirajte snap paket:
    ```bash

@@ -38,7 +38,7 @@ web-aplikacija/
    ```
 2. Izgradite Snap paket:
    ```bash
-   snapcraft
+   snapcraft pack
    ```
 3. Instalirajte Snap paket:
    ```bash
