@@ -33,4 +33,7 @@ Za pokretanje pojedinih aplikacija, pogledajte README datoteke unutar odgovaraju
   ```
 - Za GUI aplikacije, osigurajte da je X11 server pokrenut (na Linux-u) ili koristite VcXsrv na Windows-u.
 
+## Dokumentacija
+- [Docker službena dokumentacija](https://docs.docker.com/)
+
 ---
