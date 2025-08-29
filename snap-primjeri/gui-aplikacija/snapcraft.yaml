@@ -1,0 +1,34 @@
+name: solitaire-flet
+base: core22
+version: '1.0'
+summary: Solitaire Flet aplikacija
+description: |
+  Snap paket za Solitaire aplikaciju napisanu u Pythonu koristeći Flet (Flutter za Python).
+grade: stable
+confinement: strict
+
+apps:
+  solitaire-flet:
+    command: bin/solitaire.sh
+    extensions: [gnome]
+    plugs:
+      - network
+      - desktop
+      - desktop-legacy
+      - x11
+      - wayland
+      - home
+
+parts:
+  solitaire:
+    plugin: python
+    source: ./solitaire
+    python-requirements:
+      - requirements.txt
+
+  run-script:
+    plugin: dump
+    source: .
+    organize:
+      solitaire: bin/solitaire
+      solitaire.sh: bin/solitaire.sh
