@@ -1,51 +1,48 @@
 # Snap Primjeri
 
-Ovaj direktorij sadrži primjere za kreiranje Snap paketa.
+Ovaj direktorij sadrži primjere pakiranja i distribucije aplikacija pomoću Snapcraft alata na Linux operativnim sustavima.
 
-## Potrebni Programi
+## Sadržaj
 
-Za kreiranje Snap paketa, potrebno je instalirati sljedeće programe:
+- **jednostavna-terminal-aplikacija/**
+  - Primjer terminalske Python aplikacije pakirane kao Snap.
+  - Pokreće se iz terminala nakon instalacije Snapa.
 
-1. **Snapcraft**
-   - Instalirajte Snapcraft alat za kreiranje Snap paketa:
-     ```bash
-     sudo snap install snapcraft --classic
-     ```
+- **web-aplikacija/**
+  - Web aplikacija bazirana na Flask-u.
+  - Pakirana kao Snap, pokreće se kao servis i dostupna je na localhostu.
 
-2. **Multipass** (opcionalno)
-   - Multipass se koristi za pokretanje virtualnih mašina koje Snapcraft koristi za izgradnju paketa:
-     ```bash
-     sudo snap install multipass
-     ```
+- **webapp-service/**
+  - Flask web aplikacija konfigurirana kao Snap servis.
+  - Automatski se pokreće nakon instalacije i dostupna je na mreži.
 
-3. **LXD** (alternativa Multipass-u)
-   - LXD se može koristiti umjesto Multipass-a:
-     ```bash
-     sudo snap install lxd
-     ```
+- **gui-aplikacija/**
+  - Primjeri GUI aplikacija (Flet/Flutter za Python) pakiranih kao Snap.
+  - Pokreću se s podrškom za desktop okruženje (X11/Wayland).
 
-## Kreiranje Snap Paketa
 
-1. **Postavite Snapcraft projekt:**
-   - Kreirajte datoteku `snapcraft.yaml` u korijenskom direktoriju projekta.
+## Pokretanje Snap aplikacija
 
-2. **Izgradite Snap paket:**
+1. Izgradite Snap paket u željenom direktoriju:
    ```bash
    snapcraft pack
    ```
-
-3. **Testirajte Snap paket:**
-   - Instalirajte izgrađeni Snap paket:
-     ```bash
-     sudo snap install <ime-paketa>.snap --dangerous
-     ```
-
-4. **Objavite Snap paket:**
-   - Objavite paket na Snap Store-u koristeći Snapcraft.
+2. Instalirajte Snap paket:
+   ```bash
+   sudo snap install <ime_paketa>_<verzija>_amd64.snap --devmode
+   ```
+3. Pokrenite aplikaciju:
+   ```bash
+   <ime_paketa>
+   ```
 
 ## Napomene
+- Svaki poddirektorij sadrži vlastiti `README.md` s detaljnim uputama za instalaciju i korištenje.
+- Snapcraft omogućuje jednostavno pakiranje Python, Flask, PyQt i Flet aplikacija za Linux.
+- Za objavu na Snap Store potrebno je kreirati Snapcraft račun.
 
-- Snapcraft zahtijeva Ubuntu ili sličan Linux sustav za izgradnju Snap paketa.
-- Multipass ili LXD su potrebni za izolirano okruženje izgradnje.
+## Dokumentacija
+- [Snapcraft službena dokumentacija](https://snapcraft.io/docs)
+- [Primjeri Snap paketa](https://github.com/snapcore/snapcraft)
 
 ---
