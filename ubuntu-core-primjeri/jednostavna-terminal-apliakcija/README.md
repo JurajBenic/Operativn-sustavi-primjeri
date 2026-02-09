@@ -29,7 +29,6 @@ Prije nego što započnete, provjerite imate li sljedeće:
      {
        "name": "jednostavna-terminal-apliakcija",
        "type": "app",
-       "default-channel": "stable",
        "file": "path/to/your-snap-file.snap"
      }
    ]
