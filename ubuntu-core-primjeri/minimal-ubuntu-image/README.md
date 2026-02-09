@@ -204,6 +204,27 @@ Ova naredba generira `.img` datoteku koju možete koristiti za pokretanje u Mult
 
 **Napomena:** Zamijenite `minimalni-model.model` s nazivom vaše potpisane model datoteke.
 
+### 6.1. Kreiranje image na SD kartici
+
+Nakon generiranja `.img` datoteke, zapišite ju na SD karticu za pokretanje na fizičkom uređaju (npr. Raspberry Pi).
+
+**Alati za zapisivanje image-a:**
+
+**Linux:**
+- `dd` naredba: `sudo dd if=pc.img of=/dev/sdX bs=4M status=progress conv=fsync`
+- Raspberry Pi Imager
+- balenaEtcher
+
+**Windows:**
+- Raspberry Pi Imager (https://www.raspberrypi.com/software/)
+- balenaEtcher (https://www.balena.io/etcher/)
+- Rufus
+
+**macOS:**
+- `dd` naredba ili Raspberry Pi Imager / balenaEtcher
+
+**⚠️ UPOZORENJE:** Prije zapisivanja provjerite naziv uređaja SD kartice kako ne biste prepisali podatke na hard disku!
+
 ### 7. Konfiguracija za Raspberry Pi 5
 
 Ako koristite Ubuntu Core image na Raspberry Pi 5, potrebno je prilagoditi konfiguraciju grafičkog drajvera u `config.txt` datoteci.
@@ -217,6 +238,8 @@ Ako koristite Ubuntu Core image na Raspberry Pi 5, potrebno je prilagoditi konfi
 - Boot particija je obično **prva particija** na SD kartici (često formatirana kao FAT32)
 
 
+### 8. Konfiguracija IP adrese i spajanje putem SSH-a
 
+Nakon što ste uspješno zapisali Ubuntu Core image na SD karticu i pokrenuli uređaj (npr. Raspberry Pi), potrebno je konfigurirati mrežne postavke kako biste se mogli spojiti na uređaj putem SSH-a.
 
-
+Nakon uspješnog spajanja putem SSH-a, možete nastaviti s daljnjom konfiguracijom ili instalacijom dodatnih snap paketa.
