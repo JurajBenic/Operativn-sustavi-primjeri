@@ -81,43 +81,99 @@ name: jednostavna-terminal-aplikacija
 ```
 
 ### 2. base
-Definira osnovni operativni sustav na kojem se paket temelji (npr. `core22` za Ubuntu 22.04).
+Definira osnovni operativni sustav na kojem se paket temelji (npr. `core22` za Ubuntu 22.04, `core24` za Ubuntu 24.04).
 ```yaml
-base: core22
+base: core24
 ```
 
-### 3. version
+### 3. platforms
+Definira podržane platforme i arhitekture za koje se snap može izgraditi. Ovo polje zamjenjuje stariji `architectures` za `core24` i novije verzije.
+
+```yaml
+platforms:
+  amd64:
+    build-on: [amd64]
+    build-for: [amd64]
+  arm64:
+    build-on: [amd64, arm64]
+    build-for: [arm64]
+  armhf:
+    build-on: [amd64, armhf]
+    build-for: [armhf]
+```
+
+**Objašnjenje polja:**
+- **platforms**: Glavni ključ koji sadrži definicije svih podržanih platformi
+- **amd64 / arm64 / armhf**: Naziv platforme (arhitektura)
+- **build-on**: Lista arhitektura na kojima se snap može graditi
+  - Primjer: `build-on: [amd64, arm64]` znači da se snap za arm64 može graditi na amd64 (cross-compilation) ili na arm64 (native)
+- **build-for**: Ciljana arhitektura za koju je snap namijenjen
+  - `build-for: [arm64]` znači da će rezultat biti snap paket za arm64 arhitekturu
+
+**Primjeri korištenja:**
+
+1. **Native build** (gradnja za istu arhitekturu):
+   ```bash
+   snapcraft pack
+   ```
+   Gradi za trenutnu arhitekturu (npr. amd64 ako si na x86_64 računalu).
+
+2. **Cross-compilation** (gradnja za drugu arhitekturu):
+   ```bash
+   snapcraft pack --build-for=arm64
+   ```
+   Gradi na amd64 za arm64 (zahtijeva LXD ili remote-build).
+
+3. **Remote build** (gradnja na cloud serverima):
+   ```bash
+   snapcraft remote-build
+   ```
+   Gradi za sve definirane platforme na Launchpad serverima.
+
+4. **LXD build sa emulacijom**:
+   ```bash
+   snapcraft pack --use-lxd --build-for=arm64
+   ```
+   Koristi LXD i QEMU emulaciju za cross-compilation.
+
+**Napomena:** Cross-compilation zahtijeva da `build-on` lista uključuje trenutnu arhitekturu. Npr. za gradnju arm64 na amd64, arm64 mora imati `build-on: [amd64, arm64]`.
+
+**Razlika između core22 i core24:**
+- **core22 i stariji**: Koriste `architectures: [amd64, arm64]`
+- **core24 i noviji**: Koriste `platforms:` s `build-on` i `build-for` definicijama
+
+### 4. version
 Verzija aplikacije koja se pakira.
 ```yaml
 version: '0.1'
 ```
 
-### 4. summary
+### 5. summary
 Kratki opis aplikacije (do 78 znakova).
 ```yaml
 summary: Jednostavna terminalska aplikacija u Pythonu
 ```
 
-### 5. description
+### 6. description
 Detaljan opis aplikacije.
 ```yaml
 description: |
   Ova aplikacija demonstrira izradu i pakiranje jednostavne terminalske aplikacije u Pythonu koristeći Snapcraft.
 ```
 
-### 6. grade
+### 7. grade
 Definira stabilnost paketa (`devel` za razvojnu, `stable` za produkcijsku verziju).
 ```yaml
 grade: devel
 ```
 
-### 7. confinement
+### 8. confinement
 Definira razinu izolacije aplikacije (`devmode`, `strict`, `classic`).
 ```yaml
 confinement: devmode
 ```
 
-### 8. apps
+### 9. apps
 Definira kako se aplikacija pokreće i koje naredbe postaju dostupne nakon instalacije.
 ```yaml
 apps:
@@ -127,7 +183,7 @@ apps:
 ```
 - **command**: Putanja do izvršne skripte koja se pokreće kad korisnik upiše naziv aplikacije.
 
-### 9. parts
+### 10. parts
 Definira kako se aplikacija gradi, koje ovisnosti se instaliraju i odakle se uzima izvorni kod.
 ```yaml
 parts:
@@ -141,7 +197,7 @@ parts:
 - **build-packages**: Paketi potrebni za vrijeme gradnje (npr. gcc, python3-dev).
 - **stage-packages**: Paketi koji se uključuju u Snap za vrijeme izvođenja.
 
-### 10. dodatne opcije
+### 11. dodatne opcije
 Moguće je dodati:
 - **environment**: Definiranje varijabli okoline.
 - **plugs**: Definiranje pristupa resursima sustava (npr. network, home).

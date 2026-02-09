@@ -2,6 +2,16 @@ name: jednostavna-terminal-aplikacija # Name of the snap package, must be unique
 base: core24 # Base snap providing the execution environment for this snap
 version: '0.1' # Version of the application, typically in the format '1.2+git' or '1.3.2'
 summary: Jednostavna terminal aplikacija # Short summary of the application (up to 79 characters)
+platforms: # Supported platforms with cross-compilation support
+  amd64:
+    build-on: [amd64]
+    build-for: [amd64]
+  arm64:
+    build-on: [amd64, arm64]  # Can build on amd64 (cross-compile) or arm64 (native)
+    build-for: [arm64]
+  armhf:
+    build-on: [amd64, armhf]
+    build-for: [armhf]
 description: | # Detailed description of the application
   Ova aplikacija je jednostavna terminalska aplikacija napisana u Pythonu.
   Služi kao primjer za izradu i pakiranje terminalskih aplikacija pomoću Snapcraft alata.
