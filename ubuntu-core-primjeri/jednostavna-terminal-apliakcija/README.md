@@ -33,12 +33,7 @@ Prije nego što započnete, provjerite imate li sljedeće:
      }
    ]
    ```
-   Nakon što ste osigurali da je vaša snap aplikacija uključena u model datoteku, pokrenite sljedeću naredbu za generiranje imagea:
-   ```bash
-   ubuntu-image snap --allow-snapd-kernel-mismatch jednostavna-terminal-apliakcija.model
-   ```
-
-   **Alternativa:** Umjesto izmjene model datoteke, snap aplikaciju možete dodati izravno prilikom generiranja Ubuntu Core imagea koristeći opciju `--snap`:
+   Snap aplikaciju dodajete prilikom generiranja Ubuntu Core imagea koristeći opciju `--snap`:
    ```bash
    ubuntu-image snap --allow-snapd-kernel-mismatch jednostavna-terminal-apliakcija.model --snap path/to/your-snap-file.snap
    ```
