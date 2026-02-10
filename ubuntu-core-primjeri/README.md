@@ -5,7 +5,7 @@ Ovaj direktorij sadrži primjere i upute za rad s Ubuntu Core i Snapcraft ekosus
 ## Što je Ubuntu Core?
 Ubuntu Core je sigurni, minimalistički operativni sustav za IoT uređaje, baziran na Snap paketima.
 
-## Osnovni postupci
+## Osnovni koraci
 
 ### 1. Kreiranje Ubuntu One računa
 Za objavu i upravljanje Snap paketima na Ubuntu Core uređajima, potrebno je imati Ubuntu One račun.
@@ -15,7 +15,7 @@ Za objavu i upravljanje Snap paketima na Ubuntu Core uređajima, potrebno je ima
 3. Ispunite tražene podatke (email, lozinka, ime).
 4. Potvrdite email adresu klikom na poveznicu u emailu koji ćete primiti.
 
-### 2. Povezivanje credentials na razvojni stroj
+### 2. Povezivanje credentials-a na razvojni stroj
 Za autentifikaciju i objavu Snap paketa, potrebno je povezati Snapcraft s vašim Ubuntu One računom.
 
 1. Instalirajte Snapcraft:
@@ -40,8 +40,8 @@ Za autentifikaciju i objavu Snap paketa, potrebno je povezati Snapcraft s vašim
 > export SNAPCRAFT_STORE_CREDENTIALS=$(sudo cat credentials.txt)
 > ```
 
-### 3. Dohvat developer account ID-a
-Developer account ID je potreban za upravljanje uređajima i objavu paketa.
+### 3. Dohvaćanje developer account ID-a
+Developer account ID potreban je za upravljanje uređajima i objavu paketa.
 
 1. Nakon prijave, pokrenite:
    ```bash
@@ -85,6 +85,7 @@ Prije instalacije Ubuntu Core-a na Raspberry Pi 5, potrebno je ažurirati firmwa
 5. Sada možete instalirati Ubuntu Core.
 
 ## Alternativni pristup: Ručna izmjena konfiguracije
+> **Napomena:** Ovaj pristup omogućava samo shell pristup i **ne radi s ubuntu-frame** grafičkim okvirom. Za punu podršku ubuntu-frame-a, preporučuje se ažuriranje firmware-a preko Raspberry Pi OS-a.
 
 Ako ne želite prvo instalirati Raspberry Pi OS, možete ručno prilagoditi grafičku konfiguraciju:
 
@@ -99,4 +100,3 @@ Ako ne želite prvo instalirati Raspberry Pi OS, možete ručno prilagoditi graf
    dtoverlay=vc4-kms-v3d-pi5
    ```
 
-> **Napomena:** Ovaj pristup omogućava samo shell pristup i **ne radi s ubuntu-frame** grafičkim okvirom. Za punu podršku ubuntu-frame-a, preporučuje se ažuriranje firmware-a preko Raspberry Pi OS-a.
