@@ -225,20 +225,7 @@ Nakon generiranja `.img` datoteke, zapišite ju na SD karticu za pokretanje na f
 
 **⚠️ UPOZORENJE:** Prije zapisivanja provjerite naziv uređaja SD kartice kako ne biste prepisali podatke na hard disku!
 
-### 7. Konfiguracija za Raspberry Pi 5
-
-Ako koristite Ubuntu Core image na Raspberry Pi 5, potrebno je prilagoditi konfiguraciju grafičkog drajvera u `config.txt` datoteci.
-
-**Promjena dtoverlay postavke:**
-- **Stara vrijednost** (za Pi 4 i starije): `dtoverlay=vc4-fkms-v3d,cma-128`
-- **Nova vrijednost** (za Pi 5): `dtoverlay=vc4-kms-v3d-pi5`
-
-**Gdje se nalazi config.txt datoteka:**
-- Datoteka se nalazi na **boot particiji** 
-- Boot particija je obično **prva particija** na SD kartici (često formatirana kao FAT32)
-
-
-### 8. Konfiguracija IP adrese i spajanje putem SSH-a
+### 7. Konfiguracija IP adrese i spajanje putem SSH-a
 
 Nakon što ste uspješno zapisali Ubuntu Core image na SD karticu i pokrenuli uređaj (npr. Raspberry Pi), potrebno je konfigurirati mrežne postavke kako biste se mogli spojiti na uređaj putem SSH-a.
 
