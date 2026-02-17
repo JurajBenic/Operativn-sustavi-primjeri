@@ -85,7 +85,7 @@ aplikacije:
 - `plugs`:
 	- `gpu-2404` content plug za Mesa (grafički stack).
 - `environment` (globalno): XDG i XKB putanje za ispravno ponašanje alata.
-	- **XDG** (freedesktop.org standard) definira gdje aplikacije traže i spremaju
+	- **XDG** ([freedesktop.org](https://www.freedesktop.org/wiki/) standard) definira gdje aplikacije traže i spremaju
 		konfiguracije, cache i podatke (npr. `XDG_CONFIG_HOME`, `XDG_CACHE_HOME`,
 		`XDG_DATA_DIRS`). U snapu se preusmjerava u $SNAP_USER_* kako bi sve bilo
 		izolirano po korisniku i po snapu.
