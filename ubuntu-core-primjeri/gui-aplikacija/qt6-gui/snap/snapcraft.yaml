@@ -1,0 +1,142 @@
+name: qt6-gui
+version: "0.1"
+summary: Primjer QT6 GUI-a s PySide6
+description: Primjer QT6 GUI-a s PySide6
+confinement: strict
+compression: lzo
+grade: stable
+base: core24
+
+apps:
+  qt6-gui:
+    command-chain: &_command-chain
+      - bin/gpu-2404-wrapper
+      - bin/wayland-launch
+    command: &_command bin/python3 $SNAP/app/main.py
+    plugs: &_plugs
+      - opengl
+      - wayland
+    environment: &_environment
+      # These environment variables are typically needed by Qt applications to ensue the snapped version of
+      # Qt components are found and used
+      # # If you are using a different version of Python or PySide6, you may need to adjust the paths above. 
+      # You can find the correct paths by running `snap run --shell qt6-gui` and then looking 
+      # in the `$SNAP/lib/python3.12/site-packages/` directory to see where PySide6 is installed and what version it is.
+      # LD_LIBRARY_PATH is needed to ensure the snapped version of Qt libraries are used, rather than any on the host system. 
+      # The paths below are for Python 3.12 and PySide6, so you may need to adjust them if you are using a different version of Python or PySide6. 
+      QT_QPA_PLATFORM: wayland
+      LD_LIBRARY_PATH: $SNAP/lib/python3.12/site-packages/PySide6/Qt/lib:$LD_LIBRARY_PATH
+      QT_PLUGIN_PATH: $SNAP/lib/python3.12/site-packages/PySide6/Qt/plugins
+      QT_QPA_PLATFORM_PLUGIN_PATH: $SNAP/lib/python3.12/site-packages/PySide6/Qt/plugins/platforms
+      QML2_IMPORT_PATH: $SNAP/lib/python3.12/site-packages/PySide6/Qt/qml
+
+  daemon:
+    daemon: simple
+    restart-delay: 3s
+    restart-condition: always
+    command-chain: *_command-chain
+    command: *_command
+    plugs: *_plugs
+    environment: *_environment
+
+# This is one of four snippets that relate to providing the userspace graphics needed by your application.
+# You can treat this as "magic" so long as you don't need to make changes.
+# On the Mir website there's a lot more detail on [the gpu-2404 Snap interface](https://mir-server.io/docs/the-gpu-2404-snap-interface) and it's use.
+plugs:
+  gpu-2404:
+    interface: content
+    target: $SNAP/gpu-2404
+    default-provider: mesa-2404
+
+environment:
+  # Other, generally useful environment settings...
+  # XDG config
+  XDG_CACHE_HOME:  $SNAP_USER_COMMON/.cache
+  XDG_CONFIG_HOME: $SNAP_USER_DATA/.config
+  XDG_CONFIG_DIRS: $SNAP/etc/xdg
+  XDG_DATA_DIRS:   $SNAP/usr/local/share:$SNAP/usr/share
+  # XKB config
+  XKB_CONFIG_ROOT: $SNAP/usr/share/X11/xkb
+
+# The `layout` ensures that files can be found by applications where they are expected by the toolkit or application.
+layout:
+  /usr/share/libdrm:
+    bind: $SNAP/gpu-2404/libdrm
+  /usr/share/drirc.d:
+    symlink: $SNAP/gpu-2404/drirc.d
+  # Other, generally useful paths
+  /usr/share/fonts:
+    bind: $SNAP/usr/share/fonts
+  /usr/share/icons:
+    bind: $SNAP/usr/share/icons
+  /usr/share/sounds:
+    bind: $SNAP/usr/share/sounds
+  /etc/fonts:
+    bind: $SNAP/etc/fonts
+  # GTK
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gdk-pixbuf-2.0:
+    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gdk-pixbuf-2.0
+  /usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/gtk-3.0:
+    bind: $SNAP/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/gtk-3.0
+  /usr/share/mime:
+    bind: $SNAP/usr/share/mime
+  /etc/gtk-3.0:
+    bind: $SNAP/etc/gtk-3.0
+
+parts:
+  python-app:
+    plugin: python
+    source: app
+    python-requirements:
+      - requirements.txt
+    override-build: |
+      craftctl default
+      install -Dm644 "$CRAFT_PART_SRC/main.py" "$CRAFT_PART_INSTALL/app/main.py"
+    stage-packages:
+      # This is not needed as the necessary Qt Wayland platform plugin is included in the PySide6 package, 
+      # but you may need to add other packages here if your application needs them. 
+      # You can find these by running `snap run --shell qt6-gui` and then trying to run your application from the command line,
+      # which should show you any missing dependencies.
+      # - qt6-wayland 
+      - xkb-data
+      - libfontconfig1
+      - fontconfig-config
+      - fonts-dejavu-core
+
+  # Some utility scripts for setting up the Wayland environment
+  setup:
+    plugin: dump
+    source: wayland-launch
+    override-build: |
+      # The plugs needed to run Wayland. (wayland-launch checks them, setup.sh connects them)
+      # You may add further plugs here if you want these options
+      PLUGS="opengl wayland gpu-2404"
+      sed --in-place "s/%PLUGS%/$PLUGS/g" $CRAFT_PART_BUILD/bin/wayland-launch
+      sed --in-place "s/%PLUGS%/$PLUGS/g" $CRAFT_PART_BUILD/bin/setup.sh
+      craftctl default
+    stage-packages:
+      - inotify-tools
+
+  gpu-2404:
+    after:
+      - python-app
+      - setup
+    source: https://github.com/canonical/gpu-snap.git
+    plugin: dump
+    override-prime: |
+      craftctl default
+      ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
+      cd "$CRAFT_PRIME/usr/share/"
+      rm -rf bug drirc.d glvnd libdrm lintian man
+      rm -rf applications apport bash-completion dbus-1 doc-base doc gtk-doc\
+             help pkgconfig libthai metainfo themes thumbnailers xml
+    prime:
+      - bin/gpu-2404-wrapper
+
+platforms:
+  amd64:
+    build-on: [amd64]
+    build-for: [amd64]
+  arm64:
+    build-on: [arm64]
+    build-for: [arm64]
