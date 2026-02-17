@@ -113,6 +113,7 @@ parts:
       PLUGS="opengl wayland gpu-2404"
       sed --in-place "s/%PLUGS%/$PLUGS/g" $CRAFT_PART_BUILD/bin/wayland-launch
       sed --in-place "s/%PLUGS%/$PLUGS/g" $CRAFT_PART_BUILD/bin/setup.sh
+      chmod 755 $CRAFT_PART_BUILD/bin/wayland-launch $CRAFT_PART_BUILD/bin/setup.sh
       craftctl default
     stage-packages:
       - inotify-tools
