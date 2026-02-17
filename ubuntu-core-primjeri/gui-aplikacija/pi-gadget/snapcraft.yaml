@@ -1,0 +1,269 @@
+name: pi
+version: 24-3
+summary: Raspberry Pi gadget
+description: |
+  Support files for booting Raspberry Pi.
+  This gadget snap supports the Raspberry Pi 2B, 3B, 3A+, 3B+, 4B, Compute
+  Module 3, and the Compute Module 3+ universally.
+type: gadget
+base: core24
+assumes: [kernel-assets]
+platforms:
+  rpi:
+    build-on: arm64
+    build-for: arm64
+  rpi-amd64:
+    build-on: amd64
+    build-for: arm64
+
+confinement: strict
+grade: stable
+parts:
+  boot-assets:
+    plugin: nil
+    source: configs
+    override-build: |
+      set -x
+      
+      # This branch is dedicated to arm64 support
+      BUILD_SERIES=noble
+      BUILD_ARCH=${CRAFT_ARCH_BUILD_FOR}
+      
+      # restricted source import to retrieve the Pi firmware
+      SOURCES_RESTRICTED="${CRAFT_PART_BUILD}/restricted.sources.list"
+      APT_OPTIONS="-o Dir::Etc::sourcelist=${SOURCES_RESTRICTED}"
+      sed -e "/^deb/ s/\bSERIES/${BUILD_SERIES}/" \
+          -e "/^deb/ s/\bARCH\b/${BUILD_ARCH}/" \
+          apt/sources.list > ${SOURCES_RESTRICTED}
+      apt-get update ${APT_OPTIONS}
+
+      # download and extract the firmaware
+      RPI_FW=linux-firmware-raspi
+      apt-get download ${APT_OPTIONS} \
+                       $(apt-cache ${APT_OPTIONS} \
+                                   showpkg ${RPI_FW} | \
+                                   sed -n -e 's/^Package: *//p' | \
+                                   sort -V | tail -1 \
+                        )
+      dpkg-deb --extract $(ls ${CRAFT_PART_BUILD}/${RPI_FW}*.deb | tail -1) ${CRAFT_PART_BUILD}
+
+      # copy relevant firware files in boot-assets
+      install -d ${CRAFT_PART_INSTALL}/boot-assets
+      for file in fixup start bootcode; do
+              install -m 644 ${CRAFT_PART_BUILD}/usr/lib/${RPI_FW}/${file}* ${CRAFT_PART_INSTALL}/boot-assets/
+      done
+
+      # install config.txt and cmdline.txt
+      install -m 644 config.txt ${CRAFT_PART_INSTALL}/boot-assets/
+      install -m 644 cmdline.txt ${CRAFT_PART_INSTALL}/boot-assets/
+
+      # piboot.conf lets snapd identify piboot as the bootloader on boot
+      install -m 644 /dev/null ${CRAFT_PART_INSTALL}/piboot.conf
+
+slots:
+  bcm-gpio-512:
+    interface: gpio
+    number: 512
+  bcm-gpio-513:
+    interface: gpio
+    number: 513
+  bcm-gpio-514:
+    interface: gpio
+    number: 514
+  bcm-gpio-515:
+    interface: gpio
+    number: 515
+  bcm-gpio-516:
+    interface: gpio
+    number: 516
+  bcm-gpio-517:
+    interface: gpio
+    number: 517
+  bcm-gpio-518:
+    interface: gpio
+    number: 518
+  # GPIO 519 and 520 are by default in use for the SPI0 device
+  # and dtparam=spi=on in config.txt-common must be changed
+  # for these to be available.
+  #  bcm-gpio-519:
+  #    interface: gpio
+  #    number: 519
+  #  bcm-gpio-520:
+  #    interface: gpio
+  #    number: 520
+  bcm-gpio-521:
+    interface: gpio
+    number: 521
+  bcm-gpio-522:
+    interface: gpio
+    number: 522
+  bcm-gpio-523:
+    interface: gpio
+    number: 523
+  bcm-gpio-524:
+    interface: gpio
+    number: 524
+  bcm-gpio-525:
+    interface: gpio
+    number: 525
+  bcm-gpio-526:
+    interface: gpio
+    number: 526
+  bcm-gpio-527:
+    interface: gpio
+    number: 527
+  bcm-gpio-528:
+    interface: gpio
+    number: 528
+  bcm-gpio-529:
+    interface: gpio
+    number: 529
+  bcm-gpio-530:
+    interface: gpio
+    number: 530
+  bcm-gpio-531:
+    interface: gpio
+    number: 531
+  bcm-gpio-532:
+    interface: gpio
+    number: 532
+  bcm-gpio-533:
+    interface: gpio
+    number: 533
+  bcm-gpio-534:
+    interface: gpio
+    number: 534
+  bcm-gpio-535:
+    interface: gpio
+    number: 535
+  bcm-gpio-536:
+    interface: gpio
+    number: 536
+  bcm-gpio-537:
+    interface: gpio
+    number: 537
+  bcm-gpio-538:
+    interface: gpio
+    number: 538
+  bcm-gpio-539:
+    interface: gpio
+    number: 539
+  i2c-0:
+    interface: i2c
+    path: /dev/i2c-0
+  i2c-1:
+    interface: i2c
+    path: /dev/i2c-1
+  i2c-2:
+    interface: i2c
+    path: /dev/i2c-2
+  i2c-3:
+    interface: i2c
+    path: /dev/i2c-3
+  i2c-4:
+    interface: i2c
+    path: /dev/i2c-4
+  i2c-5:
+    interface: i2c
+    path: /dev/i2c-5
+  i2c-6:
+    interface: i2c
+    path: /dev/i2c-6
+  bt-serial:
+    interface: serial-port
+    path: /dev/ttyAMA0
+  ama1-serial:
+    interface: serial-port
+    path: /dev/ttyAMA1
+  ama2-serial:
+    interface: serial-port
+    path: /dev/ttyAMA2
+  ama3-serial:
+    interface: serial-port
+    path: /dev/ttyAMA3
+  ama4-serial:
+    interface: serial-port
+    path: /dev/ttyAMA4
+  ama5-serial:
+    interface: serial-port
+    path: /dev/ttyAMA5
+  serial0:
+    interface: serial-port
+    path: /dev/ttyS0
+  serial1:
+    interface: serial-port
+    path: /dev/ttyS1
+  serial2:
+    interface: serial-port
+    path: /dev/ttyS2
+  serial3:
+    interface: serial-port
+    path: /dev/ttyS3
+  serial4:
+    interface: serial-port
+    path: /dev/ttyS4
+  serial5:
+    interface: serial-port
+    path: /dev/ttyS5
+  serial6:
+    interface: serial-port
+    path: /dev/ttyS6
+  serial7:
+    interface: serial-port
+    path: /dev/ttyS7
+  serial8:
+    interface: serial-port
+    path: /dev/ttyS8
+  serial9:
+    interface: serial-port
+    path: /dev/ttyS9
+  spidev0:
+    interface: spi
+    path: /dev/spidev0.0
+  spidev1:
+    interface: spi
+    path: /dev/spidev0.1
+  spidev1-0:
+    interface: spi
+    path: /dev/spidev1.0
+  spidev1-1:
+    interface: spi
+    path: /dev/spidev1.1
+  spidev2-0:
+    interface: spi
+    path: /dev/spidev2.0
+  spidev2-1:
+    interface: spi
+    path: /dev/spidev2.1
+  spidev3-0:
+    interface: spi
+    path: /dev/spidev3.0
+  spidev3-1:
+    interface: spi
+    path: /dev/spidev3.1
+  spidev4-0:
+    interface: spi
+    path: /dev/spidev4.0
+  spidev4-1:
+    interface: spi
+    path: /dev/spidev4.1
+  spidev5-0:
+    interface: spi
+    path: /dev/spidev5.0
+  spidev5-1:
+    interface: spi
+    path: /dev/spidev5.1
+  spidev6-0:
+    interface: spi
+    path: /dev/spidev6.0
+  spidev6-1:
+    interface: spi
+    path: /dev/spidev6.1
+  pwm0:
+    interface: pwm
+    chip-number: 0
+    channel: 0
+  pwm1:
+    interface: pwm
+    chip-number: 0
+    channel: 1

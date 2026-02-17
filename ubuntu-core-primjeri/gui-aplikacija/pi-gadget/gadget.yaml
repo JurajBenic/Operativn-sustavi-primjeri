@@ -1,0 +1,45 @@
+volumes:
+  pi:
+    schema: mbr
+    bootloader: piboot
+    structure:
+      - name: ubuntu-seed
+        role: system-seed
+        filesystem: vfat
+        type: 0C
+        size: 2200M
+        content:
+          # Exposed kernel-assets are not needed since the migration to piboot.
+          # However, they can't be fully removed for now as snapd requires to
+          # reference at least one of the assets exposed by the kernel.
+          # TODO: remove this dtb overlay unnecessary copy when snapd has an
+          # option to ignore unused kernel-assets
+          - source: $kernel:dtbs/dtbs/overlays/
+            target: /overlays
+          - source: boot-assets/
+            target: /
+      - name: ubuntu-boot
+        role: system-boot
+        filesystem: vfat
+        type: 0C
+        # whats the appropriate size?
+        size: 1500M
+      # NOTE: ubuntu-save is optional for unencrypted devices like the pi, so
+      # this structure can be dropped in favor of a different partition for
+      # users who wish to instead use a different partition, since with MBR we
+      # are limited to only 4 primary partitions.
+      # TODO: look into switching over to GPT, the pi bootloader firmware now
+      #       has support for this
+      - name: ubuntu-save
+        role: system-save
+        filesystem: ext4
+        type: 83,0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        # min-size to allow remodeling from previous releases
+        min-size: 16M
+        size: 32M
+      - name: ubuntu-data
+        role: system-data
+        filesystem: ext4
+        type: 83,0FC63DAF-8483-4772-8E79-3D69D8477DE4
+        # XXX: make auto-grow to partition
+        size: 1500M
