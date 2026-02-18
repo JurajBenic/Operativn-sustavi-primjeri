@@ -1,6 +1,6 @@
 # Jednostavna Terminal Aplikacija
 
-Ova aplikacija je jednostavna terminalska aplikacija napisana u Pythonu. Služi kao primjer za izradu i pakiranje terminalskih aplikacija pomoću Snapcraft alata.
+Ova aplikacija je jednostavna terminalska aplikacija napisana u Pythonu. Služi kao primjer za izradu i pakiranje terminal aplikacija pomoću Snapcraft alata.
 
 ## Značajke
 - Osnovna interakcija putem terminala
@@ -70,9 +70,10 @@ conda activate myenv
 python src/app.py
 ```
 
-## Detaljno objašnjenje snapcraft.yaml datoteke
+# Detaljno objašnjenje snapcraft.yaml datoteke
 
-`snapcraft.yaml` je konfiguracijska datoteka koja definira kako se aplikacija pakira kao Snap paket. Evo objašnjenja svih ključnih dijelova za ovaj primjer:
+`snapcraft.yaml` je konfiguracijska datoteka koja definira kako se aplikacija pakira kao Snap paket.
+U nastavku su dana objašnjenja svih ključnih dijelova za ovaj primjer:
 
 ### 1. name
 Naziv Snap paketa. Mora biti jedinstven na Snap Store-u.
@@ -103,11 +104,11 @@ platforms:
 ```
 
 **Objašnjenje polja:**
-- **platforms**: Glavni ključ koji sadrži definicije svih podržanih platformi
-- **amd64 / arm64 / armhf**: Naziv platforme (arhitektura)
-- **build-on**: Lista arhitektura na kojima se snap može graditi
-  - Primjer: `build-on: [amd64, arm64]` znači da se snap za arm64 može graditi na amd64 (cross-compilation) ili na arm64 (native)
-- **build-for**: Ciljana arhitektura za koju je snap namijenjen
+- **platforms**: glavni ključ koji sadrži definicije svih podržanih platformi
+- **amd64 / arm64 / armhf**: naziv platforme (arhitektura)
+- **build-on**: lista arhitektura na kojima se snap može graditi
+  - primjer: `build-on: [amd64, arm64]` znači da se snap za arm64 može graditi na amd64 (cross-compilation) ili na arm64 (native)
+- **build-for**: ciljana arhitektura za koju je snap namijenjen
   - `build-for: [arm64]` znači da će rezultat biti snap paket za arm64 arhitekturu
 
 **Primjeri korištenja:**
@@ -139,8 +140,8 @@ platforms:
 **Napomena:** Cross-compilation zahtijeva da `build-on` lista uključuje trenutnu arhitekturu. Npr. za gradnju arm64 na amd64, arm64 mora imati `build-on: [amd64, arm64]`.
 
 **Razlika između core22 i core24:**
-- **core22 i stariji**: Koriste `architectures: [amd64, arm64]`
-- **core24 i noviji**: Koriste `platforms:` s `build-on` i `build-for` definicijama
+- **core22 i stariji**: koriste `architectures: [amd64, arm64]`
+- **core24 i noviji**: koriste `platforms:` s `build-on` i `build-for` definicijama
 
 ### 4. version
 Verzija aplikacije koja se pakira.
@@ -168,7 +169,14 @@ grade: devel
 ```
 
 ### 8. confinement
-Definira razinu izolacije aplikacije (`devmode`, `strict`, `classic`).
+Definira razinu izolacije aplikacije. Postoje tri moda:
+
+- **devmode**: Razvojni mod - aplikacija se pokreće **bez zaštitnog okruženja** (sandboxa) i ima **puni pristup** svim resursima sustava. Koristi se tijekom razvoja jer omogućava brz razvoj bez potrebe za konfiguracijom dozvola, ali s manjom sigurnosti.
+
+- **strict**: Strogi sandboxing - aplikacija je **izoliirana** od ostatka sustava i ima **maksimalnu sigurnost**. Pristupa samo što je eksplicitno dozvoljeno putem `plugs` (npr. network, home, camera). Preporučuje se za **produkcijske** pakete jer koristi najstrože sigurnosne standarde.
+
+- **classic**: Klasični način - aplikacija ima **gotovo puni pristup** sustavu kao normalna instalacija. Kombinacija je devmodea i stricga s manje sandboxinga. Koristi se ako je aplikacija inkompatibilna sa strict modom, ali je rijetko u praksi.
+
 ```yaml
 confinement: devmode
 ```

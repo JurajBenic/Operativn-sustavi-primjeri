@@ -10,10 +10,10 @@ Ovaj direktorij sadrži primjer korištenja Docker Compose za pokretanje baze po
 
 Ova datoteka definira servise potrebne za pokretanje baze podataka. Tipično uključuje:
 
-- **image**: Određuje koju bazu podataka koristi (npr. `mysql`, `postgres`, `mariadb` itd.).
-- **environment**: Postavlja varijable okoline kao što su korisničko ime, lozinka i naziv baze.
-- **ports**: Mapira portove kontejnera na portove host računala, omogućujući pristup bazi izvana.
-- **volumes**: Omogućuje trajno spremanje podataka baze izvan kontejnera.
+- **image**: određuje koju bazu podataka koristi (npr. `mysql`, `postgres`, `mariadb` itd.),
+- **environment**: postavlja varijable okoline kao što su korisničko ime, lozinka i naziv baze,
+- **ports**: mapira portove kontejnera na portove host računala, omogućujući pristup bazi izvana,
+- **volumes**: omogućuje trajno spremanje podataka baze izvan kontejnera.
 
 Primjer (za MySQL):
 ```yaml

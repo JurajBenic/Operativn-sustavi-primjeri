@@ -5,7 +5,7 @@ Ovaj projekt prikazuje kako pokrenuti jednostavnu Python terminal aplikaciju za 
 ## Sadržaj
 
 - `python-terminal-app/app.py` – Python skripta za transformaciju teksta s podrškom za argumente komandne linije.
-- `python-terminal-app/requirements.txt` – Popis Python ovisnosti.
+- `python-terminal-app/requirements.txt` – popis Python ovisnosti.
 - `python-terminal-app/Dockerfile` – Dockerfile za izgradnju slike.
 - `docker-compose.yml` – Docker Compose konfiguracija za pokretanje servisa.
 

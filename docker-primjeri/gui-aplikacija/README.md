@@ -4,8 +4,8 @@ Ovaj direktorij sadrži GUI aplikaciju baziranu na PyQt6, koja se pokreće kori�
 
 ## Sadržaj
 
-- **Dockerfile** – Konfiguracijska datoteka za izgradnju Docker slike.
-- **README.md** – Dokumentacija za pokretanje aplikacije na Linux i Windows operativnim sustavima.
+- **Dockerfile** – konfiguracijska datoteka za izgradnju Docker slike.
+- **README.md** – dokumentacija za pokretanje aplikacije na Linux i Windows operativnim sustavima.
 
 ## Pokretanje na Linux OS-u
 

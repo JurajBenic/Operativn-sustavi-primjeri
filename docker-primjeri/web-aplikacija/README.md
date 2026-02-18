@@ -4,9 +4,9 @@ Ovaj direktorij sadrži Flask web aplikaciju, koja se pokreće korištenjem Dock
 
 ## Sadržaj
 
-- **flask-app/** – Sadrži kod Flask aplikacije, uključujući `app.py`, Dockerfile, te mape `static` i `templates`.
-- **docker-compose.yml** – Konfiguracijska datoteka za pokretanje Flask aplikacije kao Docker servisa.
-- **secrets/** – Sadrži tajne datoteke (npr. `pgadmin_default_password.txt`).
+- **flask-app/** – sadrži kod Flask aplikacije, uključujući `app.py`, Dockerfile, te mape `static` i `templates`.
+- **docker-compose.yml** – konfiguracijska datoteka za pokretanje Flask aplikacije kao Docker servisa.
+- **secrets/** – sadrži tajne datoteke (npr. `pgadmin_default_password.txt`).
 
 ## Pokretanje
 
