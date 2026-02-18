@@ -141,6 +141,49 @@ Primjer sekcije:
 }
 ```
 
+#### **Kako pretraživati i dohvaćati podatke o snapovima:**
+
+Prije nego što dodate snap u model, trebate pronaći točan ID i kanale dostupnog snapa. Koristite Snapcraft CLI ili web pretragu:
+
+**Pretraživanje snapa naredbom:**
+```bash
+snap search <naziv-snapa>
+```
+
+**Primjer:**
+```bash
+snap search nodejs
+```
+
+Prikazat će vam dostupne verzije, kanale i verzije snapa.
+
+**Dohvaćanje detaljnih informacija o snapu:**
+```bash
+snap info <naziv-snapa>
+```
+
+**Primjer:**
+```bash
+snap info pi-kernel
+```
+
+Prikazat će metapodatke kao što su ID snapa, dostupni kanali, vlasnik i opis.
+
+**Napomena:** Ako naredba `snap info pi-kernel` ne vraća rezultat, to može biti jer:
+- `snap` naredba nije instalirana na vašem sustavu (koristite `sudo apt install snapd` za instalaciju)
+- Snap paket nije dostupan u javnom Snap Store-u za vašu arhitekturu
+- Paket je možda dostupan samo za specifične arhitekture (npr. samo za arm64)
+
+Alternativno, možete tražiti snapse na web stranici https://snapcraft.io/ gdje možete pregledati sve dostupne snapse s detaljnim informacijama.
+
+**Web pretraga:**
+- Posjetite https://snapcraft.io/ i pretražite snap pakete
+- Tamo možete vidjeti sve dostupne verzije, kanale i ID snapa
+
+**Pronalaženje ID-a snapa:**
+- ID snapa vidljiv je u izlazu `snap info` naredbe (polje `snap-id`)
+- Trebate taj ID da biste sigurno referirali snap u modelu
+
 
 
 ### 5. Potpisivanje modela

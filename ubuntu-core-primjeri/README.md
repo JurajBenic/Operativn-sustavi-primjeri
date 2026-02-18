@@ -5,6 +5,29 @@ Ovaj direktorij sadrži primjere i upute za rad s Ubuntu Core i Snapcraft ekosus
 ## Što je Ubuntu Core?
 Ubuntu Core je sigurni, minimalistički operativni sustav za IoT uređaje, baziran na Snap paketima.
 
+## Sadržaj
+
+- **minimal-ubuntu-image/**
+  - Upute za izradu minimalnog Ubuntu Core imagea.
+  - Koristi se za Raspberry Pi i druge ARM uređaje.
+  - Sadrži detaljne korake za potpisivanje modela i generiranje imagea.
+
+- **jednostavna-terminal-apliakcija/**
+  - Primjer jednostavne terminalske aplikacije za Ubuntu Core.
+  - Demonstrira minimalnu konfiguraciju za IoT uređaje.
+
+- **web-aplikacija/**
+  - Web aplikacija pakirana kao Ubuntu Core snap servis.
+  - Demonstrira izradu kiosk aplikacija i web servisa za IoT.
+
+- **gui-aplikacija/**
+  - Primjeri GUI aplikacija za Ubuntu Core.
+  - Sadrži primjere za Qt6 aplikacije i Raspberry Pi gadget konfiguracije.
+
+- **gui-kompleksna-aplikacija/**
+  - Kompleksnija GUI aplikacija s dodatnim funkcionalnostima.
+  - Primjer za Super Mario game i wayland-launch konfiguraciju.
+
 ## Osnovni koraci
 
 ### 1. Kreiranje Ubuntu One računa
