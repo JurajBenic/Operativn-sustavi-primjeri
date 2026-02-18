@@ -20,6 +20,9 @@ Ovaj direktorij sadrži primjere pakiranja i distribucije aplikacija pomoću Sna
   - Primjeri GUI aplikacija (Flet/Flutter za Python) pakiranih kao Snap.
   - Pokreću se s podrškom za desktop okruženje (X11/Wayland).
 
+- **tkinter-app/**
+  - GUI aplikacija napisana u Tkinter-u pakirana kao Snap.
+  - Pokreće se u fullscreen modu s podrškom za X11/Wayland okruženje.
 
 ## Pokretanje Snap aplikacija
 

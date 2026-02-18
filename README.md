@@ -33,11 +33,21 @@ Ovisno o operativnom sustavu koji koristite, trebate instalirati sljedeće alate
 
 #### **1. Docker Desktop**
 Potreban za rad sa Docker primjerima.
+
+**Preuzimanje i instalacija:**
 ```powershell
-# Preuzimanje instalatora
-# Posjetite: https://www.docker.com/products/docker-desktop/
-# Pokrenite instalator i pratite upute
-# Provjerite instalaciju:
+# Direktno preuzimanje EXE instalatora:
+# https://www.docker.com/products/docker-desktop/
+# 1. Kliknite na "Download for Windows"
+# 2. Pokrenite preuzetu Docker Desktop Installer.exe datoteku
+# 3. Pratite upute u instalatoru
+
+# Ili preko Chocolatey:
+choco install docker-desktop
+```
+
+**Provjera instalacije:**
+```powershell
 docker --version
 docker run hello-world
 ```
@@ -60,68 +70,125 @@ snapcraft --version
 ubuntu-image --version
 ```
 
-#### **3. Multipass**
-Potreban za virtualizaciju Ubuntu Core imagea na Windowsima.
+#### **3. XLaunch (X Server za WSL2 - opciono)**
+Potreban za pokretanje GUI aplikacija u WSL2 na Windows domaćinu.
+
+**Preuzimanje i instalacija:**
 ```powershell
-# Preuzimanje instalatora
-# Posjetite: https://multipass.run/
-# Pokrenite instalator
-# Provjerite instalaciju:
+# Direktno preuzimanje EXE instalatora:
+# https://sourceforge.net/projects/vcxsrv/
+# 1. Kliknite na "Download" gumb
+# 2. Pokrenite preuzetu VcXsrv-XX.XX.X.X.installer.exe datoteku
+# 3. Pratite upute u instalatoru
+
+# Ili preko Chocolatey:
+choco install vcxsrv
+```
+
+**Konfiguracija i pokretanje:**
+```powershell
+# Nakon instalacije, pokrenite XLaunch iz Start menija
+# Konfiguracija: Multiple windows, Start no client, sve ostalo default
+# U WSL2 terminalu postavite:
+export DISPLAY=$(ip route list default | awk '{print $3}'):0
+```
+
+#### **4. Multipass**
+Potreban za virtualizaciju Ubuntu Core imagea na Windowsima.
+
+**Preuzimanje i instalacija:**
+```powershell
+# Direktno preuzimanje EXE instalatora:
+# https://multipass.run/
+# 1. Kliknite na "Download" i odaberite Windows verziju
+# 2. Pokrenite preuzetu multipass-installer-windows.exe datoteku
+# 3. Pratite upute u instalatoru
+
+# Ili preko Chocolatey:
+choco install multipass
+```
+
+**Provjera instalacije:**
+```powershell
 multipass version
 ```
 
 #### **4. Raspberry Pi Imager**
 Alatka za pisanje Ubuntu Core i Raspberry Pi OS imagea na SD kartice.
+
+**Preuzimanje i instalacija:**
 ```powershell
-# Preuzimanje instalatora:
+# Direktno preuzimanje EXE instalatora:
 # https://www.raspberrypi.com/software/
-# Pokrenite instalator i pratite upute
+# 1. Kliknite na "Download for Windows"
+# 2. Pokrenite preuzetu imager.exe datoteku
+# 3. Pratite upute u instalatoru
+
+# Ili preko Chocolatey:
+choco install rpi-imager
 ```
 
 #### **5. Git (opciono, za kloniranje repozitorija)**
-**Opcija A: Git CLI**
+
+**Opcija A: Git CLI (Command Line)**
 ```powershell
-# Preuzimanje instalatora:
+# Direktno preuzimanje EXE instalatora:
 # https://git-scm.com/download/win
+# 1. Kliknite na "64-bit Git for Windows Setup" (ili 32-bit ako trebate)
+# 2. Pokrenite preuzetu Git-X.XX.X-64-bit.exe datoteku
+# 3. Pratite upute u instalatoru
+
 # Ili preko Chocolatey:
 choco install git
 
-# Provjerite instalaciju:
+# Provjera instalacije:
 git --version
 ```
 
 **Opcija B: GitHub Desktop (GUI)**
 ```powershell
-# Preuzimanje instalatora:
+# Direktno preuzimanje EXE instalatora:
 # https://desktop.github.com/
-# Pokrenite instalator i pratite upute
+# 1. Kliknite na "Download for Windows"
+# 2. Pokrenite preuzetu GitHubDesktopSetup-x64.exe datoteku
+# 3. Pratite upute u instalatoru
 # GitHub Desktop pruža grafičko sučelje za rad s Git repozitorijima
+
+# Ili preko Chocolatey:
+choco install github-desktop
 ```
 
-#### **6. Python 3.10+**
+#### **7. Python 3.10+**
 Potreban za pokretanje Python aplikacija.
 
 **Opcija A: Python.org**
 ```powershell
-# Preuzimanje:
+# Direktno preuzimanje EXE instalatora:
 # https://www.python.org/downloads/
+# 1. Kliknite na "Download Python 3.X.X"
+# 2. Pokrenite preuzetu python-3.X.X-amd64.exe datoteku
+# 3. VAŽNO: Označite "Add Python 3.X to PATH" tijekom instalacije
+# 4. Pratite upute u instalatoru
+
 # Ili preko Chocolatey:
 choco install python
 
-# Provjerite instalaciju:
+# Provjera instalacije:
 python --version
 ```
 
 **Opcija B: Conda (Miniconda ili Anaconda)**
 ```powershell
-# Preuzimanje Miniconde (lakša verzija):
+# Direktno preuzimanje EXE instalatora (Miniconda - lakša verzija):
 # https://docs.conda.io/projects/miniconda/en/latest/
-# Pokrenite instalator
+# 1. Preuzmi "Miniconda3 Windows 64-bit"
+# 2. Pokrenite Miniconda3-latest-Windows-x86_64.exe datoteku
+# 3. Pratite upute u instalatoru
 
 # Ili preko Chocolatey:
 choco install miniconda3
 
-# Provjerite instalaciju:
+# Provjera instalacije:
 conda --version
 
 # Kreirajte okruženje s Python 3.10+:
