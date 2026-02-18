@@ -1,0 +1,35 @@
+name: tkinter-app
+base: core24
+version: '1.0'
+summary: Tkinter fullscreen GUI aplikacija
+description: |
+  Snap paket za jednostavnu Tkinter GUI aplikaciju u punom ekranu.
+grade: devel
+confinement: devmode
+
+parts:
+  app-python:
+    plugin: python
+    # python-version: python3
+    build-packages: [python3-tk]
+    stage-packages: [python3-tk]
+    source: .
+
+  copy-files:
+    plugin: dump # Use the dump plugin to include additional files
+    source: . # Source directory for the script
+    organize:
+      app: bin/app/ # Map the app directory to the bin directory
+      launcher.sh: bin/launcher.sh # Map the launcher script to the bin directory
+
+apps:
+  tkinter-app:
+    command: bin/launcher.sh
+    extensions: [gnome]
+    plugs:
+      - desktop
+      - desktop-legacy
+      - x11
+      - wayland
+      - home
+
