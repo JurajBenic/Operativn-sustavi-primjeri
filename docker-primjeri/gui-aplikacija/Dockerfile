@@ -38,17 +38,18 @@ RUN apt-get update && apt-get install -y \
     x11-apps \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone the repository
-RUN git clone https://github.com/limafresh/pyqulator.git
+WORKDIR /calculator
+
+# Copy application files
+COPY calculator .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir PyQt6
-RUN pip install --no-cache-dir sympy==1.14.0
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Set Qt to use X11
 ENV QT_QPA_PLATFORM=xcb
 
-WORKDIR /pyqulator/pyqulator
+
 
 # Default command
 CMD ["python", "main.py"]
